@@ -14,23 +14,24 @@ export const takeUserNumber = num => ({
 // check guess value against random number
 export const COMPARE_NUMBER = 'COMPARE_NUMBER';
 export const NUMBER_MATCHED = 'NUMBER_MATCHED';
-export const COLDER = 'COLDER';
-export const HOTTER = 'HOTTER';
+export const COLD = 'COLD';
+export const HOT = 'HOT';
 
 export const compareNumber = num => (dispatch, getState) => {
   const {randomNumber, guesses} = getState();
   const lastGuess = guesses[guesses.length - 1]
+  const numberDistance = Math.abs(lastGuess - randomNumber);
   if (randomNumber === num) {
     dispatch({
       type: NUMBER_MATCHED
     })
-  } else if(/*number is farther from answer than last guess*/) {
+  } else if(numberDistance > 10) {
     dispatch({
-      type: COLDER
+      type: COLD
     })
-  } else if (/*number is farther from answer than last guess*/) {
+  } else if (numberDistance < 10) {
     dispatch({
-      type: HOTTER
+      type: HOT
     })
   }
 

@@ -3,7 +3,8 @@ import * as actions from '../actions/index';
 const initialState = {
   randomNumber: Math.floor(Math.random() * 100),
   guesses: [],
-  correctGuess: false
+  correctGuess: false,
+  modalView: false
 };
 
 export const guessReducer = (state=initialState, action) => {
@@ -14,13 +15,24 @@ export const guessReducer = (state=initialState, action) => {
     case actions.TAKE_USER_NUMBER:
       return {
         ...state,
-        guesses: [...state.guesses, action.num]
+        guesses: [...state.guesses, action.num],
+        modalView: false
       }
     case actions.COMPARE_NUMBER:
       return {
         ...state,
         guesses: [...state.guesses, action.num]
       }
+    case actions.COLD:
+      return {
+        ...state,
+        modalView: true
+      }
+      case actions.HOT:
+        return {
+          ...state,
+          modalView: true
+        }
     case actions.NUMBER_MATCHED:
       return {
         ...state,
