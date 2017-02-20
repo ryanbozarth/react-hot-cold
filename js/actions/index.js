@@ -1,14 +1,7 @@
 // initialize game
 export const INIT_GAME = 'INIT_GAME';
-export const initGame = initialize => ({
-    type: INIT_GAME,
-    initialize
-});
-
-export const TAKE_USER_NUMBER = 'TAKE_USER_NUMBER';
-export const takeUserNumber = num => ({
-  type: TAKE_USER_NUMBER,
-  num
+export const initGame = () => ({
+    type: INIT_GAME
 });
 
 // check guess value against random number
@@ -21,6 +14,10 @@ export const compareNumber = num => (dispatch, getState) => {
   const {randomNumber, guesses} = getState();
   const lastGuess = guesses[guesses.length - 1]
   const numberDistance = Math.abs(lastGuess - randomNumber);
+    dispatch({
+      type: COMPARE_NUMBER,
+      num
+    })
   if (randomNumber === num) {
     dispatch({
       type: NUMBER_MATCHED
