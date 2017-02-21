@@ -1,8 +1,8 @@
 import chai from 'chai'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import * as actions from '../js/actions/index'
-import _ from 'lodash'
+import * as actions from '../js/actions'
+import reducers from '../js/reducers'
 
 const should = chai.should()
 const mockStore = configureMockStore([thunk])
@@ -29,18 +29,61 @@ describe('actions', function() {
     storeActions[0].num.should.equal(expectNumberMatched[0].num)
     storeActions[1].type.should.equal(expectNumberMatched[1].type)
   })
-  xit('should dispatch COLD if guess is more than 10', function() {
+  it('should dispatch COLD if guess is more than 10', function() {
+    const expectedCold = {
+      type: actions.COLD
+    }
+
+    const store = mockStore({guesses: [], randomNumber: 15})
+    store.dispatch(actions.compareNumber(27))
+
+    const storeActions = store.getActions()
+    storeActions[0].num.should.equal(27)
+    storeActions[0].type.should.equal(actions.COMPARE_NUMBER)
+    storeActions[1].type.should.equal(actions.COLD)
 
   })
-  xit('should dispatch HOT if guess is less than 10', function() {
+  it('should dispatch HOT if guess is less than 10', function() {
+    const expectedCold = {
+      type: actions.HOT
+    }
 
+    const store = mockStore({guesses: [], randomNumber: 15})
+    store.dispatch(actions.compareNumber(17))
+
+    const storeActions = store.getActions()
+    storeActions[0].num.should.equal(17)
+    storeActions[0].type.should.equal(actions.COMPARE_NUMBER)
+    storeActions[1].type.should.equal(actions.HOT)
   })
 
 
 });
 
-xdescribe('reducers', function() {
-  //https://github.com/reactjs/redux/blob/master/docs/recipes/WritingTests.md#reducers
+describe('reducers', function() {
+  let initialState
+  before(function() {
+    initialState = {
+      guess: {
+        randomNumber: 50,
+        guesses: [],
+        correctGuess: false,
+        modalView: false
+      }
+    }
+  })
+  it('should handle INIT_GAME', function() {
+    const result = reducers(initialState, actions.initGame()).guess
+    result.randomNumber.should.equal(50)
+    result.guesses.length.should.equal(0)
+    result.correctGuess.should.be.false
+    result.modalView.should.be.false
+  })
+  it('should handle COMPARE_NUMBER, NUMBER_MATCHED', function() {
+    reducers(initialState, actions.compareNumber(50))
+    // result.guesses.length.should.equal(1)
+    // result.guesses[0].should.equal(50)
+  })
 })
 
 

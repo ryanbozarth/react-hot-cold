@@ -12,7 +12,9 @@ export const HOT = 'HOT';
 
 export const compareNumber = num => (dispatch, getState) => {
   const {randomNumber, guesses} = getState();
-  const lastGuess = guesses[guesses.length - 1]
+  const lastGuess = guesses.length
+    ? guesses[guesses.length - 1]
+    : num
   const numberDistance = Math.abs(lastGuess - randomNumber);
     dispatch({
       type: COMPARE_NUMBER,
