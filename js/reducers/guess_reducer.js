@@ -1,4 +1,4 @@
-hotimport * as actions from '../actions/index';
+import * as actions from '../actions/index';
 
 const initialState = {
   randomNumber: Math.floor(Math.random() * 100),

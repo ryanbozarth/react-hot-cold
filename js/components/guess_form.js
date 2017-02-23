@@ -1,6 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { compareNumber } from '../actions/index'
 
-class GuessForm extends Component {
+export default class GuessForm extends Component {
   constructor(props) {
     super(props);
 
@@ -11,14 +14,16 @@ class GuessForm extends Component {
   }
 
   onInputChange(event) {
-    this.setState({ guess: event.target.value });
+    this.setState({ guesses: event.target.value });
+    console.log(guesses);
   }
 
   onFormSubmit(event) {
     event.preventDefault();
-
+    // console.log(props)
     this.props.compareNumber(this.state.guess);
-    this.setState({ guess: ''});
+    this.setState({ guesses: ''});
+    console.log(guesses);
   }
 
   render() {

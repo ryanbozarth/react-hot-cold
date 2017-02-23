@@ -17,7 +17,7 @@ export default class Game extends Component {
     return (
       <div>
       <h1>Game Component</h1>
-      {/* <GuessForm guesses={this.props.guesses} /> */}
+      <GuessForm />
       </div>
     );
   }
