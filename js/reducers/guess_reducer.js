@@ -1,4 +1,4 @@
-import * as actions from '../actions/index';
+hotimport * as actions from '../actions/index';
 
 const initialState = {
   randomNumber: Math.floor(Math.random() * 100),
@@ -7,7 +7,7 @@ const initialState = {
   modalView: false
 };
 
-export default (state=initialState, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case actions.INIT_GAME:
       return state
