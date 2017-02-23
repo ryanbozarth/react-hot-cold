@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 
-export default class GuessForm extends Component {
+class GuessForm extends Component {
   constructor(props) {
     super(props);
 
     this.state = { guess: '' };
 
     this.onInputChange = this.onInputChange.bind(this);
+    this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
   onInputChange(event) {
@@ -16,7 +17,8 @@ export default class GuessForm extends Component {
   onFormSubmit(event) {
     event.preventDefault();
 
-    // TODO: compare guess, add guess to list
+    this.props.compareNumber(this.state.guess);
+    this.setState({ guess: ''});
   }
 
   render() {
@@ -34,3 +36,9 @@ export default class GuessForm extends Component {
     )
   }
 }
+
+// function mapDispatchToProps(dispatch) {
+//   return bindActionCreators({ compareNumber }, dispatch)
+// }
+//
+// export default connect(null, mapDispatchToProps)(GuessForm)
