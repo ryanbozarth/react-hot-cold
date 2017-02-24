@@ -4,7 +4,7 @@ export default function GuessList(props) {
 
   return (
     <ul>
-      {guesses}
+  
     </ul>
   )
 }

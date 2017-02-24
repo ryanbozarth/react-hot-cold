@@ -12,6 +12,7 @@ export const HOT = 'HOT';
 
 export const compareNumber = num => (dispatch, getState) => {
   const {randomNumber, guesses} = getState();
+  console.log(randomNumber, guesses, num)
   const lastGuess = guesses.length
     ? guesses[guesses.length - 1]
     : num

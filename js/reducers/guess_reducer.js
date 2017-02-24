@@ -12,8 +12,11 @@ export default (state = initialState, action) => {
     case actions.INIT_GAME:
       return state
     case actions.COMPARE_NUMBER:
-      const payload = { guesses: action.num }
-      return Object.assign({}, payload)
+      const payload = state.guesses
+      console.log(state)
+      return {
+        ...state,
+        guesses: [...state.guesses, action.num] }
     case actions.COLD:
       return {
         ...state,

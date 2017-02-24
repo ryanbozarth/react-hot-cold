@@ -1,9 +1,15 @@
 require('babel-polyfill');
 
 import React from 'react'
-import ReactDOM from 'react-dom'
-import Game from './components/game'
+import { render } from 'react-dom'
+import { Provider } from 'react-redux'
 
-document.addEventListener('DOMContentLoaded', () =>
-    ReactDOM.render(<Game />, document.getElementById('app'))
-);
+import Game from './components/game'
+import store from './store'
+
+render (
+  <Provider store={store}>
+    <Game />
+  </Provider>,
+  document.getElementById('app')
+)

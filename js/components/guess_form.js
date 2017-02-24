@@ -3,27 +3,33 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { compareNumber } from '../actions/index'
 
-export default class GuessForm extends Component {
+export class GuessForm extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { guess: '' };
+    this.state = {
+      currentGuess: ''
+    };
 
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
   onInputChange(event) {
-    this.setState({ guesses: event.target.value });
-    console.log(guesses);
+    var number = parseInt(event.target.value)
+    if(number > 100 || number < 0) {
+      return console.error("Please choose a number between 0 and 100")
+    }
+    this.setState({currentGuess: number})
   }
 
   onFormSubmit(event) {
     event.preventDefault();
-    // console.log(props)
-    this.props.compareNumber(this.state.guess);
-    this.setState({ guesses: ''});
-    console.log(guesses);
+    // this.setState({guesses: [...this.state.guesses, this.state.currentGuess]})
+    // setTimeout(() => console.log(this.state.guesses), 10)
+    // this.setState({currentGuess: ''})
+
+    this.props.compareNumber(this.state.currentGuess)
   }
 
   render() {
@@ -32,8 +38,12 @@ export default class GuessForm extends Component {
         <input
           placeholder="Make a guess"
           className="form-control"
-          value={this.state.guess}
-          onChange={this.onInputChange} />
+          value={this.state.currentGuess}
+          onChange={this.onInputChange}
+          type="number"
+          min="0"
+          max="100"
+         />
         <span className="input-group-btn">
           <button type="submit" className="btn btn-secondary">Submit</button>
         </span>
@@ -42,8 +52,12 @@ export default class GuessForm extends Component {
   }
 }
 
-// function mapDispatchToProps(dispatch) {
-//   return bindActionCreators({ compareNumber }, dispatch)
-// }
-//
-// export default connect(null, mapDispatchToProps)(GuessForm)
+function mapPropsToState(state) {
+  return { guess: state.guess }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ compareNumber }, dispatch)
+}
+
+export default connect(mapPropsToState, mapDispatchToProps)(GuessForm)
