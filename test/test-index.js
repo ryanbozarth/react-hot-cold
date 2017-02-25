@@ -29,10 +29,7 @@ describe('actions', function() {
     storeActions[0].num.should.equal(expectNumberMatched[0].num)
     storeActions[1].type.should.equal(expectNumberMatched[1].type)
   })
-  it('should dispatch COLD if guess is more than 10', function() {
-    const expectedCold = {
-      type: actions.COLD
-    }
+  it('should dispatch COLDER if guess is more than 10', function() {
 
     const store = mockStore({guesses: [], randomNumber: 15})
     store.dispatch(actions.compareNumber(27))
@@ -40,13 +37,10 @@ describe('actions', function() {
     const storeActions = store.getActions()
     storeActions[0].num.should.equal(27)
     storeActions[0].type.should.equal(actions.COMPARE_NUMBER)
-    storeActions[1].type.should.equal(actions.COLD)
+    storeActions[1].type.should.equal(actions.COLDER)
 
   })
-  it('should dispatch HOT if guess is less than 10', function() {
-    const expectedCold = {
-      type: actions.HOT
-    }
+  it('should dispatch HOTTER if guess is less than 10', function() {
 
     const store = mockStore({guesses: [], randomNumber: 15})
     store.dispatch(actions.compareNumber(17))
@@ -54,7 +48,7 @@ describe('actions', function() {
     const storeActions = store.getActions()
     storeActions[0].num.should.equal(17)
     storeActions[0].type.should.equal(actions.COMPARE_NUMBER)
-    storeActions[1].type.should.equal(actions.HOT)
+    storeActions[1].type.should.equal(actions.HOTTER)
   })
 
 

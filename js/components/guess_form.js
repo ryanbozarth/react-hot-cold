@@ -26,7 +26,10 @@ export class GuessForm extends Component {
   onFormSubmit(event) {
     event.preventDefault();
     this.props.compareNumber(this.state.currentGuess)
+    this.state.currentGuess = ''
   }
+
+
 
   render() {
     return (
@@ -49,7 +52,7 @@ export class GuessForm extends Component {
 }
 
 function mapPropsToState(state) {
-  return { guess: state.guess }
+  return { guess: state.guess, modalType: state.modalType }
 }
 
 function mapDispatchToProps(dispatch) {

@@ -1,19 +1,24 @@
 import * as actions from '../actions/index';
 
 const initialState = {
-  randomNumber: Math.floor(Math.random() * 100),
+  randomNumber: null,
   guesses: [],
   correctGuess: false,
   modalView: false,
   modalType: null
-};
+}
+
+const generateRandomNumber = () => {
+  initialState.randomNumber = Math.floor(Math.random() * 100)
+}
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case actions.INIT_GAME:
-      return state
-    case actions.COLD:
-    case actions.HOT:
+      generateRandomNumber()
+      return initialState
+    case actions.COLDER:
+    case actions.HOTTER:
       return {
         ...state,
         modalView: true,
@@ -23,7 +28,9 @@ export default (state = initialState, action) => {
     case actions.NUMBER_MATCHED:
       return {
         ...state,
-        correctGuess: true
+        correctGuess: true,
+        modalView: true,
+        modalType: action.type
       }
     default:
       return state
