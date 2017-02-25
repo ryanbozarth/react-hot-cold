@@ -25,10 +25,6 @@ export class GuessForm extends Component {
 
   onFormSubmit(event) {
     event.preventDefault();
-    // this.setState({guesses: [...this.state.guesses, this.state.currentGuess]})
-    // setTimeout(() => console.log(this.state.guesses), 10)
-    // this.setState({currentGuess: ''})
-
     this.props.compareNumber(this.state.currentGuess)
   }
 

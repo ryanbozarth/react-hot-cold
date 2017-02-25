@@ -5,7 +5,6 @@ export const initGame = () => ({
 });
 
 // check guess value against random number
-export const COMPARE_NUMBER = 'COMPARE_NUMBER';
 export const NUMBER_MATCHED = 'NUMBER_MATCHED';
 export const COLD = 'COLD';
 export const HOT = 'HOT';
@@ -13,24 +12,23 @@ export const HOT = 'HOT';
 export const compareNumber = num => (dispatch, getState) => {
   const {randomNumber, guesses} = getState();
   console.log(randomNumber, guesses, num)
-  const lastGuess = guesses.length
-    ? guesses[guesses.length - 1]
-    : num
-  const numberDistance = Math.abs(lastGuess - randomNumber);
-    dispatch({
-      type: COMPARE_NUMBER,
-      num
-    })
   if (randomNumber === num) {
+    console.log('we have a match')
+      return dispatch({
+        type: NUMBER_MATCHED
+      })
+  }
+  const numberDistance = Math.abs(randomNumber - num)
+  if(numberDistance > 10) {
+    console.log('we are cold')
     dispatch({
-      type: NUMBER_MATCHED
-    })
-  } else if(numberDistance > 10) {
-    dispatch({
+      num,
       type: COLD
     })
   } else if (numberDistance < 10) {
+    console.log('we are hot')
     dispatch({
+      num,
       type: HOT
     })
   }

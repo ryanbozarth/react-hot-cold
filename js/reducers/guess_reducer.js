@@ -4,29 +4,22 @@ const initialState = {
   randomNumber: Math.floor(Math.random() * 100),
   guesses: [],
   correctGuess: false,
-  modalView: false
+  modalView: false,
+  modalType: null
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case actions.INIT_GAME:
       return state
-    case actions.COMPARE_NUMBER:
-      const payload = state.guesses
-      console.log(state)
-      return {
-        ...state,
-        guesses: [...state.guesses, action.num] }
     case actions.COLD:
+    case actions.HOT:
       return {
         ...state,
-        modalView: true
+        modalView: true,
+        modalType: action.type,
+        guesses: [...state.guesses, action.num]
       }
-      case actions.HOT:
-        return {
-          ...state,
-          modalView: true
-        }
     case actions.NUMBER_MATCHED:
       return {
         ...state,
