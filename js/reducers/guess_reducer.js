@@ -36,14 +36,3 @@ export default (state = initialState, action) => {
       return state
   }
 }
-
-export const anotherReducer = (state=initialState, action) => {
-  switch (action.type) {
-    case actions.INIT_TEST:
-      return initialState
-    default:
-      return state
-  }
-}
-
-//TODO: combine reducers after separating into own files
