@@ -5,7 +5,8 @@ const initialState = {
   guesses: [],
   correctGuess: false,
   modalView: false,
-  modalType: null
+  modalType: null,
+  fewestGuesses: ''
 }
 
 const generateRandomNumber = () => {
@@ -32,6 +33,7 @@ export default (state = initialState, action) => {
         modalView: true,
         modalType: action.type
       }
+    
     default:
       return state
   }

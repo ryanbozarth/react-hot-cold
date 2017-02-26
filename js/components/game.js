@@ -18,7 +18,7 @@ export class Game extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
       <h3>I'm thinking of a number...</h3>
       <GuessForm /> <hr />
       <GuessList />
