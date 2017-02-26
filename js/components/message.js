@@ -12,17 +12,19 @@ class Message extends Component {
 
   winCondition() {
     if (this.props.modalType === NUMBER_MATCHED) {
-      return <button onClick={() => this.props.initGame()}>Reset Game</button>
-
+      return <button className="top btn btn-primary" onClick={() => this.props.initGame()}>Reset Game</button>
     }
   }
 
   render() {
+    if (this.props.modalType === null ) {
+      return null;
+    } else
     return (
-      <div className="message">
-        <p>You are {this.props.modalType}</p>
-        {this.winCondition()}
-      </div>
+        <div className="alert alert-info">
+          <p>You are {this.props.modalType}</p>
+          {this.winCondition()}
+        </div>
     )
   }
 }
