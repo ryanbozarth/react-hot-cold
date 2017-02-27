@@ -18,14 +18,14 @@ describe('actions', function() {
 
   it('should dispatch NUMBER_MATCHED if guess is correct', function() {
     const expectNumberMatched = [
-      { type: actions.NUMBER_MATCHED } ]
+      { type: actions.NUMBER_MATCHED }
+    ]
 
     const store = mockStore({guesses: [], randomNumber: 15})
     store.dispatch(actions.compareNumber(15))
 
     const storeActions = store.getActions()
-    console.log(storeActions)
-    storeActions[0].type.should.equal(expectNumberMatched[0].type)
+    storeActions.should.deep.equal(expectNumberMatched)
     storeActions[0].num.should.equal(expectNumberMatched[0].num)
     storeActions[1].type.should.equal(expectNumberMatched[1].type)
   })
@@ -36,7 +36,7 @@ describe('actions', function() {
 
     const storeActions = store.getActions()
 
-    // storeActions[1].num.should.equal(27)
+    storeActions[1].num.should.equal(27)
     storeActions[1].type.should.equal(actions.COLDER)
 
   })
