@@ -6,7 +6,7 @@ const initialState = {
   correctGuess: false,
   modalView: false,
   modalType: null,
-  fewestGuesses: ''
+  fewestGuesses: 0
 }
 
 const generateRandomNumber = () => {
@@ -17,7 +17,10 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case actions.INIT_GAME:
       generateRandomNumber()
-      return initialState
+      return {
+        ...initialState,
+        fewestGuesses: action.fewestGuesses
+      }
     case actions.COLDER:
     case actions.HOTTER:
       return {
@@ -33,7 +36,6 @@ export default (state = initialState, action) => {
         modalView: true,
         modalType: action.type
       }
-    
     default:
       return state
   }

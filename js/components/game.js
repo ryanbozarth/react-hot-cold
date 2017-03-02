@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import GuessForm from './guess_form'
 import GuessList from './guess_list'
 import Message from './message'
-import { initGame } from '../actions/index'
+import { getFewestNumber } from '../actions/index'
 import axios from 'axios'
 
 export class Game extends Component {
@@ -16,18 +16,14 @@ export class Game extends Component {
     }
   }
 
-  componentWillMount() {
-    this.props.initGame()
-    axios.get('http://localhost:8080/fewest-guesses')
-      .then(res => {
-        this.setState({highScore: res.data.fewestGuesses})
-      })
+  componentDidMount() {
+    this.props.getFewestNumber()
   }
 
   render() {
     return (
       <div className="container">
-      <h3>I'm thinking of a number... <small>{this.state.highScore ? this.state.highScore : ''}</small></h3>
+      <h3>Hot / Cold App <small>Score to beat: {this.props.fewestGuesses ? this.props.fewestGuesses : ''}</small></h3>
       <GuessForm /> <hr />
       <GuessList />
       <Message />
@@ -36,11 +32,14 @@ export class Game extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ initGame }, dispatch)
+function mapStateToProps(state) {
+  return {
+    fewestGuesses: state.fewestGuesses
+  }
 }
 
-export default connect(null, mapDispatchToProps)(Game)
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ getFewestNumber }, dispatch)
+}
 
-// TODO: send a post request after you receive a number matched actions
-// refactor the get so that it happens on initGame + on number matched
+export default connect(mapStateToProps, mapDispatchToProps)(Game)

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { NUMBER_MATCHED, COLDER, HOTTER, initGame } from '../actions/'
+import { NUMBER_MATCHED, COLDER, HOTTER, getFewestNumber } from '../actions/'
 
 class Message extends Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class Message extends Component {
 
   winCondition() {
     if (this.props.modalType === NUMBER_MATCHED) {
-      return <button className="top btn btn-success" onClick={() => this.props.initGame()}>Reset Game</button>
+      return <button className="top btn btn-success" onClick={() => this.props.getFewestNumber()}>Reset Game</button>
     }
   }
 
@@ -51,7 +51,7 @@ function mapPropsToState(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ initGame }, dispatch)
+  return bindActionCreators({ getFewestNumber }, dispatch)
 }
 
 export default connect(mapPropsToState, mapDispatchToProps)(Message)

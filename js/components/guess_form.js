@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { compareNumber } from '../actions/index'
+import { compareNumber, newGuess, initGame } from '../actions/index'
 
 export class GuessForm extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      currentGuess: ''
+      currentGuess: '',
+      guessCount: 0
     };
 
     this.onInputChange = this.onInputChange.bind(this);
@@ -28,7 +29,6 @@ export class GuessForm extends Component {
     this.props.compareNumber(this.state.currentGuess)
     this.state.currentGuess = ''
   }
-
 
 
   render() {
@@ -52,11 +52,11 @@ export class GuessForm extends Component {
 }
 
 function mapPropsToState(state) {
-  return { guess: state.guess, modalType: state.modalType }
+  return { guessLength: state.guesses.length, modalType: state.modalType }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ compareNumber }, dispatch)
+  return bindActionCreators({ compareNumber, newGuess, initGame }, dispatch)
 }
 
 export default connect(mapPropsToState, mapDispatchToProps)(GuessForm)
